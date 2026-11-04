@@ -168,3 +168,21 @@
     }
   }
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 42 popover sections
+.popup-menu-section {
+  .popup-menu-item:last-child {
+    &:hover, &:focus { border-radius: 0; }
+  }
+
+  &:last-child .popup-menu-item:last-child {
+    border-radius: 0 0 $base_radius $base_radius;
+  }
+}
+
+// GNOME 46 ornamented menu item
+.popup-ornamented-menu-item {
+  &:ltr { padding-left: $base_padding; }
+  &:rtl { padding-right: $base_padding; }
+}

@@ -60,3 +60,12 @@
   @include fontsize($font_size - 1);
   color: $warning;
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 46 quick settings spinner alignment
+.background-app-item .spinner { padding: $base_padding; }
+
+// --- extra compatibility ---
+// GNOME 44/47 placeholders (empty upstream, or high-contrast only)
+.quick-toggle-menu-container {}
+.window-icon {}

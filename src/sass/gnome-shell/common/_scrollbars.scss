@@ -29,3 +29,16 @@ StScrollBar {
     &:active { background-color: $text; }
   }
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 49 scrollbar drag handles
+StScrollBar > .vhandle,
+StScrollBar > .hhandle {
+  border-radius: 8px;
+  background-color: mix($text, $background, 30%);
+  border: 3px solid transparent;
+  transition: 500ms all ease;
+
+  &:hover { background-color: mix($text, $background, 50%); }
+  &:active { background-color: mix($text, $background, 40%); }
+}

@@ -111,3 +111,7 @@
   // list item description
   .list-search-result-description { color: on($osd, secondary); }
 }
+
+// --- version compatibility ---
+// GNOME 49 search status box
+.search-statusbox { spacing: $base_padding * 4; }

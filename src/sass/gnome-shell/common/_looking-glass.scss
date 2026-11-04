@@ -118,3 +118,90 @@
   margin: 5px 8px 11px;
   box-shadow: 0 3px 8px 0 rgba(black, 0.25);
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 47 Looking Glass additions
+#LookingGlassEvaluator {
+  padding: $base_padding;
+
+  .evaluator-results {
+    @extend %monospace;
+    spacing: $base_padding;
+  }
+}
+
+#LookingGlassActors {
+  padding: $base_padding;
+  spacing: $base_margin;
+}
+
+#LookingGlassWindows {
+  padding: $base_padding;
+  spacing: $base_padding;
+
+  .lg-window {
+    color: on($osd);
+    background-color: $osd;
+    border-radius: $base_radius;
+    margin: 0;
+    padding: $base_padding * 2;
+
+    .lg-window-name { @extend %heading; }
+
+    .lg-window-props-box {
+      .lg-window-props {}
+    }
+  }
+}
+
+#LookingGlassExtensions {
+  .lg-extension-description {}
+
+  .lg-extensions-none {
+    @extend %title_4;
+    color: transparentize(on(black), 0.5);
+  }
+}
+
+#LookingGlassDebugFlags {
+  .lg-debug-flags-header {
+    padding: $base_padding;
+    padding-top: 2 * $base_padding;
+    @extend %title_4;
+  }
+
+  .lg-debug-flag-button {
+    @extend %osd_button;
+    padding: $base_padding * 1.5 $base_padding * 2;
+    margin-bottom: $base_padding;
+
+    StLabel {
+      @extend %monospace;
+      font-weight: normal !important;
+    }
+  }
+}
+
+#LookingGlassPropertyInspector {
+  .lg-obj-inspector-close-button,
+  .lg-obj-inspector-button {
+    @extend %osd_button;
+    padding: $base_padding $base_padding * 2;
+  }
+
+  .lg-obj-inspector-close-button {
+    margin: $base_margin;
+    padding: $base_padding;
+    border-radius: $circular_radius;
+
+    > StIcon { icon-size: $base_icon_size; }
+  }
+}
+
+// --- extra compatibility ---
+.lg-toolbar-button {
+  padding: $base_padding $base_padding * 2;
+  @extend %button;
+
+  > StIcon { icon-size: $base_icon_size; }
+}

@@ -57,3 +57,18 @@
 .resize-popup {
   @extend %osd_panel;
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 48 break countdown label
+.osd-break-countdown-label {
+  background-color: $primary;
+  color: on($primary);
+  border-radius: $modal_radius;
+  font-size: 3em;
+  font-weight: bold;
+  font-feature-settings: "tnum";
+  margin: $base_margin * 3;
+  padding: $base_padding * 2;
+  text-align: center;
+  min-width: 1.5em;
+}

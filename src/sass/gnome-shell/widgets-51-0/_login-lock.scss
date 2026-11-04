@@ -1,0 +1,335 @@
+/* GNOME Shell 51 login / lock screen additions */
+
+.login-dialog,
+.unlock-dialog {
+  color: on(black);
+
+  .login-dialog-prompt-layout {
+    width: 27.6em;
+    margin-top: 80px;
+
+    &.web-login-active {
+      width: 34.5em;
+      margin-top: 0;
+    }
+  }
+
+  .login-dialog-input-well { spacing: $base_padding * 1.5; }
+
+  .login-dialog-prompt-entry-area { margin: 0.5em ($base_margin * 5); }
+
+  .login-dialog-prompt-entry {
+    border-radius: $circular_radius;
+
+    &:ltr { padding-right: 2.5em; }
+    &:rtl { padding-left: 2.5em; }
+  }
+
+  .login-dialog-default-button-well {
+    &:ltr { margin-right: 0.5em; }
+    &:rtl { margin-left: 0.5em; }
+  }
+}
+
+.login-dialog-bottom-button-group {
+  padding: 32px;
+  spacing: 16px;
+}
+
+// Buttons on the login screen
+.login-dialog-button {
+  &.next-button,
+  &.a11y-button,
+  &.cancel-button,
+  &.switch-user-button,
+  &.login-dialog-auth-menu-button,
+  &.login-dialog-session-list-button {
+    padding: 16px;
+    border: none;
+    border-radius: $circular_radius;
+    background-color: $divider;
+    color: on(black);
+
+    &:hover, &:focus { background-color: $track; }
+    &:active { background-color: $primary; color: on($primary); }
+  }
+
+  &.next-button {
+    background-color: transparent !important;
+    padding: 0;
+  }
+
+  &.cancel-button {
+    padding: $base_padding * 2;
+    margin: 0.5em 0;
+  }
+}
+
+.login-dialog-auth-menu-button-popup {
+  padding: $base_padding * 3;
+  margin-right: $base_padding * 2;
+
+  .login-dialog-auth-menu-item-section {
+    padding-top: $base_padding;
+
+    &:first-child { padding-top: 0; }
+
+    &-label {
+      font-weight: bold;
+      color: $text;
+    }
+  }
+
+  .login-dialog-auth-menu-item-icon {
+    color: $text;
+    icon-size: $base_icon_size;
+    margin-right: $base_margin * 2;
+  }
+
+  .login-dialog-auth-menu-item-box {
+    spacing: $base_spacing * 0.5;
+
+    &-name {
+      color: $text;
+      font-weight: bold;
+    }
+
+    &-description { color: $text-secondary; }
+  }
+}
+
+.login-dialog-auth-menu-button-indicator {
+  background-color: transparent !important;
+  margin: 32px;
+
+  .login-dialog-auth-menu-button-indicator-icons {
+    spacing: $base_padding * 3;
+
+    .login-dialog-auth-menu-button-indicator-icon { icon-size: 2em; }
+  }
+
+  .login-dialog-auth-menu-button-indicator-description {
+    font-weight: normal;
+    margin-left: $base_padding * 2;
+  }
+}
+
+.login-dialog-button-box { height: 4em; }
+
+.conflicting-session-dialog-content {
+  spacing: 20px;
+
+  .conflicting-session-dialog-title {
+    text-align: center;
+    @extend %title_2;
+    margin-bottom: 5px;
+  }
+
+  .conflicting-session-dialog-desc { text-align: center; }
+
+  .conflicting-session-dialog-desc-warning {
+    text-align: center;
+    color: $warning;
+    background-color: rgba($warning, 0.1);
+    padding: $base_padding * 1.5;
+    border-radius: $base_radius;
+    margin: $base_margin 0;
+  }
+}
+
+// Authentication methods list
+.login-dialog-auth-list-view {
+  -st-vfade-offset: 3em;
+  max-height: 13em;
+}
+
+.login-dialog-auth-list { spacing: $base_padding * 1.5; }
+
+.login-dialog {
+  .login-dialog-auth-list-title,
+  .login-dialog-auth-list-item {
+    border-radius: $base_radius * 1.5;
+    background-color: rgba(255, 255, 255, 0.04);
+    color: on(black);
+
+    &:hover, &:focus { background-color: $divider; }
+    &:active { background-color: $track; }
+  }
+
+  .login-dialog-auth-list-title {
+    margin: 0.5em ($base_margin * 5);
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  .login-dialog-auth-list-item {
+    min-height: 3em;
+    padding: $base_padding * 1.5;
+    margin-bottom: $base_margin;
+    margin-right: $base_margin;
+
+    &.compact { min-height: 1.3em; }
+  }
+}
+
+.unlock-dialog {
+  .login-dialog-auth-list-item,
+  .login-dialog-auth-list-title {
+    border-radius: $base_radius * 1.5;
+    min-height: 3em;
+    padding: $base_padding * 1.5;
+    margin-bottom: $base_margin;
+    margin-right: $base_margin;
+    background-color: rgba(255, 255, 255, 0.14);
+    color: on(black);
+
+    &.compact { min-height: 1.3em; }
+  }
+
+  .login-dialog-auth-list-title {
+    margin: 0.5em ($base_margin * 5);
+    padding: 0;
+  }
+}
+
+.login-dialog-auth-list-title-label {
+  @extend %title_4;
+  padding: $base_padding;
+  text-align: center;
+}
+
+.login-dialog-auth-list-item-title,
+.login-dialog-auth-list-item-subtitle {
+  @extend %heading;
+  text-align: center;
+  padding: $base_padding * 0.3 2em;
+}
+
+.login-dialog-auth-list-item-title { color: on(black); }
+
+.login-dialog-auth-list-item-subtitle {
+  color: on(black, secondary);
+  font-weight: 500;
+}
+
+.login-dialog-item-icon {
+  width: 1.3em;
+  height: 1.3em;
+  color: on(black);
+  padding: $base_padding * 0.7 $base_padding;
+  border-radius: $base_radius;
+
+  &:hover { background-color: $divider; }
+
+  &-popup {
+    &.popup-menu { min-width: 0; }
+
+    &-box &-labels {
+      spacing: $base_padding * 0.5;
+      @extend %heading;
+      text-align: center;
+
+      & > :first-child {
+        color: on(black, secondary);
+        font-weight: 500;
+      }
+
+      & > :last-child { color: on(black); }
+    }
+  }
+}
+
+// User list
+.login-dialog-user-list-view {
+  width: 25em;
+  -st-vfade-offset: 3em;
+
+  .login-dialog-user-list {
+    margin: 0 ($base_margin * 2);
+    spacing: $base_padding * 2;
+
+    .login-dialog-user-list-item {
+      border-radius: $modal_radius;
+      padding: $base_padding * 1.5;
+
+      .user-icon { border: 2px solid transparent; }
+
+      .login-dialog-timed-login-indicator {
+        height: 2px;
+        margin-top: $base_padding;
+        background-color: on(black, secondary);
+      }
+
+      &:logged-in .user-icon { border-color: $primary; }
+    }
+  }
+}
+
+// Web login
+.web-login-spinner {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 5px rgba(0, 0, 0, 0);
+  border-radius: 50px;
+}
+
+.web-login-title-label {
+  color: on(black, secondary);
+  text-align: center;
+}
+
+.web-login-url-label {
+  @extend %monospace;
+  color: on(black);
+  text-align: center;
+
+  &.web-login-url-label-long { font-size: 9pt; }
+}
+
+.web-login-code-title-label,
+.web-login-code-label {
+  color: on(black);
+  text-align: center;
+}
+
+.web-login-code-label { font-weight: bold; }
+
+.web-login-prompt {
+  padding: $base_padding ($base_padding * 4.5);
+  spacing: 1.75em;
+}
+
+.unlock-dialog {
+  .web-login-title-label,
+  .web-login-url-label,
+  .web-login-url-label-long,
+  .web-login-code-title-label,
+  .web-login-code-label,
+  .web-login-prompt { color: on(black) !important; }
+}
+
+// Login buttons
+.login-button,
+.web-login-prompt-button {
+  color: on(black);
+  text-align: center;
+  font-weight: bold;
+  border: none;
+  border-radius: $base_radius * 4;
+  background-color: $divider;
+
+  &:hover, &:focus { background-color: $track; }
+  &:active { background-color: $primary; color: on($primary); }
+}
+
+.login-button {
+  padding: 0;
+  margin: 0.2em ($base_margin * 5);
+  min-width: 12em;
+  font-size: 13pt;
+}
+
+.web-login-prompt-button {
+  padding: $base_padding * 2.5 ($base_padding * 4);
+  margin: $base_margin * 6 ($base_margin * 2);
+  min-width: 8em;
+  font-size: 13pt;
+}

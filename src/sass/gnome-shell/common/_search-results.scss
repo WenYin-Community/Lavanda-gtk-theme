@@ -105,3 +105,9 @@
   // list item description
   .list-search-result-description { color: on(black, secondary); }
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 42 search container and GNOME 49 status box
+#searchResults { margin: 0 $base_margin; }
+
+.search-statusbox { spacing: $base_padding * 4; }

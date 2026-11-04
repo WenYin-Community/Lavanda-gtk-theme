@@ -273,3 +273,39 @@
   .screencast-indicator,
   .remote-access-indicator { color: $warning; }
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 42 screen recording and GNOME 44 screen sharing indicators
+#panel .panel-button {
+  &.screen-recording-indicator {
+    box-shadow: inset 0 0 0 100px $error;
+
+    StBoxLayout { spacing: $base_padding; }
+    StIcon { icon-size: $base_icon_size; }
+  }
+
+  &.screen-sharing-indicator {
+    box-shadow: inset 0 0 0 100px $warning;
+    StBoxLayout { margin: 0 $base_padding; }
+  }
+
+  &.screen-recording-indicator,
+  &.screen-sharing-indicator {
+    StBoxLayout { spacing: $base_padding; }
+    StIcon { icon-size: $base_icon_size; }
+  }
+
+  &:active, &:overview, &:focus, &:checked {
+    &.screen-recording-indicator {
+      box-shadow: inset 0 0 0 100px transparentize($error, 0.15);
+    }
+
+    &.screen-sharing-indicator {
+      box-shadow: inset 0 0 0 100px transparentize($warning, 0.15);
+    }
+  }
+
+  // GNOME 46 message and privacy indicators
+  .messages-indicator { icon-size: $scalable_icon_size; }
+  .privacy-indicator { color: $warning; }
+}

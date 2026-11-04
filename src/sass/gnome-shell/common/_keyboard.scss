@@ -88,7 +88,8 @@ $default_key_bg_color: if($variant == 'light', #adb3bc, #4b4b4b);
   StIcon { icon-size: 1.125em; }
 }
 
-.keyboard-subkeys { //long press on a key popup
+.keyboard-subkeys,
+.keyboard-subkeys-boxpointer { //long press on a key popup
   color: inherit;
   -arrow-border-radius: $menu_radius;
   -arrow-background-color: mix($text, $keyboard_bg_color, 10%);
@@ -122,3 +123,7 @@ $default_key_bg_color: if($variant == 'light', #adb3bc, #4b4b4b);
   spacing: $base_spacing * 2;
   min-height: 20pt;
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 42 shift key states (uppercase has the styling)
+.keyboard-key.shift-key-lowercase {}

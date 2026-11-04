@@ -1,0 +1,8 @@
+/* GNOME Shell 51 Web login QR code */
+.qr-code {
+  border-radius: $base_radius * 0.5;
+  border-width: 1em;
+  background-color: white;
+  border-color: white;
+  color: black;
+}

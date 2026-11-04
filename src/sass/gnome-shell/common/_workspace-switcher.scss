@@ -34,3 +34,22 @@
   border-radius: $base_radius + 3px;
   border: none;
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 42 workspace switcher indicator
+$ws_indicator_height: $large_icon_size;
+$ws_dot_active: $ws_indicator_height / 3;
+$ws_dot_inactive: $ws_indicator_height / 6;
+
+.ws-switcher-indicator {
+  background-color: transparentize(on(black), 0.5);
+  padding: $ws_dot_inactive / 2;
+  margin: ($ws_indicator_height - $ws_dot_inactive) / 2;
+  border-radius: $ws_indicator_height;
+
+  &:active {
+    background-color: on(black);
+    padding: $ws_dot_active / 2;
+    margin: ($ws_indicator_height - $ws_dot_active) / 2;
+  }
+}

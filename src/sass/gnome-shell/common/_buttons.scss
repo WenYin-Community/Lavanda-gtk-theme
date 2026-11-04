@@ -52,3 +52,15 @@
   &:checked { @include button(checked, $tc:on($osd), $bc:$osd);}
   &:outlined, &:checked { @include button(checked, $tc:on($osd), $bc:$osd);}
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 44/46 button variants
+.button.flat { @extend %flat_button; }
+
+.button.default {
+  color: on($primary);
+  background-color: $primary;
+
+  &:hover { background-color: mix($text, $primary, 6%); }
+  &:active { background-color: mix($text, $primary, 15%); }
+}

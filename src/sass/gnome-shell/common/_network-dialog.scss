@@ -59,3 +59,6 @@
 // no networks
 .no-networks-label { color: $text-disabled; }
 .no-networks-box { spacing: $base_padding; }
+
+// --- GNOME Shell version compatibility fixes ---
+.nm-dialog-subheader { color: $text-disabled; }

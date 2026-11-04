@@ -8,7 +8,7 @@ Lavanda 是一个基于 Elegant Design 的 GTK 桌面主题，覆盖 GNOME Shell
 
 - Sass（`.scss`，用 `sassc` / libsass 编译）
 - Bash（`build.sh`、`install.sh`）
-- GTK 2 / 3 / 4、libadwaita、GNOME Shell 3.28–47、Cinnamon、Metacity、XFWM4、Plank
+- GTK 2 / 3 / 4、libadwaita、GNOME Shell 3.28–51、Cinnamon、Metacity、XFWM4、Plank
 - 无测试框架、无包管理器、不使用 Make/CMake
 
 ## 目录结构
@@ -55,10 +55,11 @@ wallpaper/               壁纸源文件与 XML
 - 只改 Sass 源码，不手改生成的 `.css`。`src/main/**/*.css` 与 `src/sass/gnome-shell/_common-temp.scss` 是构建产物，已被 `.gitignore` 忽略，不要提交。
 - 颜色、尺寸与功能开关集中在 `src/sass/_colors.scss`、`_color-palette.scss`、`_variables.scss`、`_options.scss`；调整主题基调优先改这里。
 - 新增组件样式写入对应的 `_` 前缀 partial，再由环境入口（`src/main/<env>/*.scss`）`@import`，不要复制粘贴大段样式。
-- GNOME Shell 样式按版本分文件（`_widgets-3-28.scss` 至 `_widgets-47-0.scss`），改动需检查相邻版本；`install.sh` 依据 `gnome-shell --version` 选择 `GS_VERSION`。
+- GNOME Shell 样式按版本分文件（`_widgets-3-28.scss` 至 `_widgets-51-0.scss`），改动需检查相邻版本；`install.sh` 依据 `gnome-shell --version` 选择 `GS_VERSION`（48–50 用 48-0，51+ 用 51-0）。51 的登录/锁屏新增 UI 与 Web 登录二维码样式位于 `widgets-51-0/`。
 - 资源目录按变体镜像组织（`assets`、`assets-Dark`、`theme-assets-Sea`、`common-assets` 等），新增图标要同步放入所有相关变体目录，否则对应变体会回退默认图标。
 - 保持 Bash 现有风格：2 空格缩进、小写函数名、`[[ ]]` 判断、变量加双引号。
 - 不新增依赖，`sassc` 是唯一构建依赖。
+- GTK 4 的 libadwaita 颜色变量集中在 `src/sass/gtk/_colors-libadwaita.scss`；新增或修改变量时对照 libadwaita 上游 `src/stylesheet/_colors.scss`，保持侧边栏、次级侧边栏、缩略图等变量完整。
 
 ## 验证
 
@@ -67,7 +68,8 @@ wallpaper/               壁纸源文件与 XML
 1. `./build.sh` 无 sassc 编译错误；
 2. `./install.sh -d /tmp/lavanda-test` 执行成功，确认 `Lavanda*/gtk-3.0/gtk.css`、`gnome-shell/gnome-shell.css`、`index.theme` 存在；
 3. 至少抽查一个非默认变体（如 `-t sea -c dark -s compact`）；
-4. 涉及 SCSS 时，确认生成的 CSS 中目标选择器与颜色已生效。
+4. 涉及 SCSS 时，确认生成的 CSS 中目标选择器与颜色已生效；
+5. 涉及 GNOME Shell 版本分支时，按 install.sh 的 sed 流程分别编译 `_widgets-48-0.scss` 与 `_widgets-51-0.scss` 验证。
 
 ## 注意
 

@@ -173,3 +173,97 @@
   @include fontsize($font_size + 1);
   padding-top: 1em;
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 42 authentication method list
+.login-dialog-auth-list-view { -st-vfade-offset: 1em; }
+
+.login-dialog-auth-list {
+  spacing: 6px;
+  margin-left: 2em;
+}
+
+.login-dialog-auth-list-title { margin-left: 2em; }
+
+.login-dialog-auth-list-item {
+  border-radius: $base_radius + 4px;
+  padding: 6px;
+  color: on(black, secondary);
+
+  &:focus, &:selected {
+    background-color: $primary;
+    color: on($primary);
+  }
+}
+
+.login-dialog-auth-list-label {
+  font-size: 13px;
+  font-weight: bold;
+  padding-left: 15px;
+
+  &:ltr { padding-left: 14px; text-align: left; }
+  &:rtl { padding-right: 14px; text-align: right; }
+}
+
+// GNOME 44 login dialog buttons
+.login-dialog-button {
+  @extend .button;
+
+  &.cancel-button,
+  &.switch-user-button,
+  &.login-dialog-session-list-button { @extend .icon-button; }
+
+  &.cancel-button { padding: $base_padding * 1.5; }
+}
+
+// GNOME 46 conflicting session dialog
+.conflicting-session-dialog-content {
+  spacing: 20px;
+
+  .conflicting-session-dialog-title {
+    text-align: center;
+    @extend %title_2;
+    margin-bottom: 5px;
+  }
+
+  .conflicting-session-dialog-desc { text-align: center; }
+
+  .conflicting-session-dialog-desc-warning {
+    text-align: center;
+    color: $warning;
+  }
+}
+
+.unlock-dialog-notification-icon { icon-size: $large_icon_size; }
+
+// GNOME 50 parental controls shield
+.parental-controls-shield {
+  spacing: 0.75em;
+
+  .parental-controls-shield-title {
+    margin-top: 0.6em;
+    @extend %title_4;
+    text-align: center;
+  }
+
+  .parental-controls-shield-description { text-align: center; }
+
+  .parental-controls-shield-button {
+    margin-top: 0.85em;
+    @extend %flat_button;
+    padding: $base_margin * 4 $base_margin * 11;
+    color: on(black);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: $circular_radius;
+  }
+}
+
+// GNOME 49 unlock notification drag handles
+#unlockDialogNotifications {
+  > .vhandle, > .hhandle {
+    background-color: transparentize($background, 0.7);
+
+    &:hover, &:focus { background-color: transparentize($background, 0.5); }
+    &:active { background-color: transparentize($primary, 0.5); }
+  }
+}

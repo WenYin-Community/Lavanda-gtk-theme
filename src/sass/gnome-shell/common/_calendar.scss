@@ -358,3 +358,44 @@
     font-weight: bold;
   }
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 40 clock display
+.clock-display-box {
+  spacing: 2px;
+
+  .clock {
+    padding-left: $base_padding * 2;
+    padding-right: $base_padding * 2;
+  }
+}
+
+// GNOME 46 calendar events
+.events-list {
+  spacing: $base_padding;
+
+  .event-box {
+    spacing: $base_padding;
+    border-radius: $base_radius;
+
+    .event-summary { @extend %heading; }
+
+    .event-time {
+      @extend %numeric;
+      @extend %caption;
+      color: $text-disabled;
+    }
+  }
+
+  .event-placeholder {
+    color: $text-disabled;
+    font-style: italic;
+  }
+}
+
+.world-clocks-header.no-world-clocks,
+.weather-header.no-location { color: $text; }
+
+// --- extra compatibility ---
+// GNOME 42 calendar header container (child styles live under .calendar above)
+.calendar .calendar-month-header {}

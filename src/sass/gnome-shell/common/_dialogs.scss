@@ -225,3 +225,7 @@
   height: 300px;
   width: 300px;
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 44 access portal dialog
+.access-dialog { text-align: center; }

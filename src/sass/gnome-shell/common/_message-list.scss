@@ -138,3 +138,24 @@
     color: $text-disabled;
   }
 }
+
+// --- GNOME Shell version compatibility fixes ---
+// GNOME 47 message action buttons
+.message .message-action-bin {
+  padding: $base_margin;
+  spacing: $base_padding;
+
+  * {
+    margin: 0 $base_margin;
+
+    &:first-child {
+      &:ltr { margin-left: 0; }
+      &:rtl { margin-right: 0; }
+    }
+
+    &:last-child {
+      &:ltr { margin-right: 0; }
+      &:rtl { margin-left: 0; }
+    }
+  }
+}

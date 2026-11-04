@@ -18,6 +18,21 @@
 
 - `Wallpaper` [Download here](wallpaper)
 
+## Compatibility
+
+- GNOME Shell 3.28–51
+  - 48–50: `widgets-48-0` styles
+  - 51+: `widgets-51-0` styles, including the redesigned login/lock screen, authentication method menu and Web login (QR code)
+- GTK 2, GTK 3.20+, GTK 4
+- libadwaita 1.4+ color variables (sidebars, secondary sidebars, thumbnails)
+
+### Recent compatibility work
+
+- Added GNOME Shell 48–51 support; 48–50 share the `48-0` branch, 51+ uses the new `51-0` branch.
+- GNOME Shell 51: new login/lock screen layout, authentication method menu, Web login view and QR code.
+- Filled selector gaps for GNOME Shell 40–47 (authentication list, screen recording/sharing indicators, calendar events, Looking Glass, message actions, etc.).
+- Added the missing libadwaita 1.4+ color definitions (`sidebar_*`, `secondary_sidebar_*`, `thumbnail_*`).
+
 ## Installation
 
 ### Manual Installation
