@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 
 permissions:
   contents: write
@@ -11,35 +11,30 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Build source archive
+      - name: Pack source tarball
         run: |
-          set -euo pipefail
-          name="Lavanda-${GITHUB_REF_NAME}"
-          mkdir -p "dist/${name}"
-          git archive --format=tar HEAD | tar -x -C "dist/${name}"
-          tar -czf "dist/${name}.tar.gz" -C dist "${name}"
-          echo "Archive contents:"
-          tar -tzf "dist/${name}.tar.gz" | head -20
+          VERSION="${GITHUB_REF_NAME#v}"
+          git archive --format=tar.gz --prefix="Lavanda-gtk-theme-${VERSION}/" \
+            -o "Lavanda-gtk-theme-${VERSION}.tar.gz" "$GITHUB_REF_NAME"
+          sha256sum "Lavanda-gtk-theme-${VERSION}.tar.gz" > "Lavanda-gtk-theme-${VERSION}.tar.gz.sha256"
 
-      - name: Prepare release notes
+      - name: Create release and upload tarball
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          notes=".github/release-notes/${GITHUB_REF_NAME}.md"
-          if [ -f "$notes" ]; then
-            cp "$notes" /tmp/release-notes.md
+          VERSION="${GITHUB_REF_NAME#v}"
+          NOTES=".github/release-notes/${VERSION}.md"
+          if [ -f "$NOTES" ]; then
+            gh release create "$GITHUB_REF_NAME" \
+              Lavanda-gtk-theme-*.tar.gz Lavanda-gtk-theme-*.tar.gz.sha256 \
+              --title "Lavanda-gtk-theme ${GITHUB_REF_NAME}" \
+              --notes-file "$NOTES"
           else
-            echo "Release ${GITHUB_REF_NAME}" > /tmp/release-notes.md
+            gh release create "$GITHUB_REF_NAME" \
+              Lavanda-gtk-theme-*.tar.gz Lavanda-gtk-theme-*.tar.gz.sha256 \
+              --title "Lavanda-gtk-theme ${GITHUB_REF_NAME}" \
+              --generate-notes
           fi
-
-      - name: Publish release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: ${{ github.ref_name }}
-          body_path: /tmp/release-notes.md
-          files: dist/*.tar.gz
-          draft: false
-          prerelease: false
