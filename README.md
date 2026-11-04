@@ -35,6 +35,26 @@
 
 ## Installation
 
+### Copr (Fedora / EPEL)
+
+The theme is packaged and built on Copr in the `ruojiner/lavanda-kde-theme` project:
+
+```sh
+sudo dnf copr enable ruojiner/lavanda-kde-theme
+sudo dnf install lavanda-gtk-theme
+```
+
+The RPM runs `install.sh` after installation, compiling and installing all
+variants for the GNOME Shell version present on the system. `sassc` is pulled
+in automatically as a dependency. Available for Fedora 44, Fedora 45 and
+EPEL 10 (x86_64).
+
+To remove it:
+
+```sh
+sudo dnf remove lavanda-gtk-theme
+```
+
 ### Manual Installation
 
 Run the following commands in the terminal:

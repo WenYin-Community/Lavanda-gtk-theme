@@ -60,6 +60,7 @@ wallpaper/               壁纸源文件与 XML
 - 保持 Bash 现有风格：2 空格缩进、小写函数名、`[[ ]]` 判断、变量加双引号。
 - 不新增依赖，`sassc` 是唯一构建依赖。
 - GTK 4 的 libadwaita 颜色变量集中在 `src/sass/gtk/_colors-libadwaita.scss`；新增或修改变量时对照 libadwaita 上游 `src/stylesheet/_colors.scss`，保持侧边栏、次级侧边栏、缩略图等变量完整。
+- RPM 打包由 `packaging/lavanda-gtk-theme.spec` 负责，`%post` 调用 `install.sh` 在目标系统按实际 GNOME Shell 版本编译安装；Copr workflow 为 `.github/workflows/copr.yml`，提交到 `ruojiner/lavanda-kde-theme` 项目（Fedora 44/45、EPEL 10 x86_64）。
 
 ## 验证
 
