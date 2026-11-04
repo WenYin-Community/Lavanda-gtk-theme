@@ -1,0 +1,53 @@
+name: COPR
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  copr:
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    steps:
+      - name: Install tooling
+        run: dnf install -y git rpm-build copr-cli
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure copr-cli
+        env:
+          COPR_LOGIN: ${{ secrets.COPR_LOGIN }}
+          COPR_TOKEN: ${{ secrets.COPR_TOKEN }}
+          COPR_USERNAME: ${{ secrets.COPR_USERNAME }}
+        run: |
+          mkdir -p ~/.config
+          cat > ~/.config/copr <<EOF
+          [copr-cli]
+          login = ${COPR_LOGIN}
+          username = ${COPR_USERNAME}
+          token = ${COPR_TOKEN}
+          copr_url = https://copr.fedorainfracloud.org
+          EOF
+          chmod 600 ~/.config/copr
+          copr-cli whoami
+
+      - name: Build SRPM
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="$(rpmspec -q --srpm --qf '%{version}' packaging/lavanda-gtk-theme.spec | head -1)"
+          fi
+          echo "Building lavanda-gtk-theme ${VERSION}"
+          mkdir -p ~/rpmbuild/{SOURCES,SPECS}
+          git archive --format=tar.gz --prefix="Lavanda-gtk-theme-${VERSION}/" \
+            -o ~/rpmbuild/SOURCES/"Lavanda-gtk-theme-${VERSION}.tar.gz" HEAD
+          cp packaging/lavanda-gtk-theme.spec ~/rpmbuild/SPECS/
+          rpmbuild -bs ~/rpmbuild/SPECS/lavanda-gtk-theme.spec
+          echo "SRPM=$(ls ~/rpmbuild/SRPMS/*.src.rpm)" >> "$GITHUB_ENV"
+
+      - name: Submit COPR build
+        run: copr-cli build --nowait ruojiner/lavanda-kde-theme "$SRPM"
