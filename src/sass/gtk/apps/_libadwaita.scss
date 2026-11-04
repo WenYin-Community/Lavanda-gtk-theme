@@ -1,0 +1,871 @@
+
+//
+// avatar
+//
+
+avatar {
+  border-radius: $circular-radius;
+  font-weight: bold;
+
+  // The list of colors to generate avatars.
+  // Each avatar color is represented by a font color, a gradient start color and a gradient stop color.
+  // There are 8 different colors for avtars in the list if you change the number of them you
+  // need to update the NUMBER_OF_COLORS in src/adw-avatar.c.
+  // The 2D list has this form: ((font-color, gradient-top-color, gradient-bottom-color)).
+  $avatarcolorlist: (
+   (#cfe1f5, #83b6ec, #337fdc), // blue
+   (#caeaf2, #7ad9f1, #0f9ac8), // cyan
+   (#cef8d8, #8de6b1, #29ae74), // green
+   (#e6f9d7, #b5e98a, #6ab85b), // lime
+   (#f9f4e1, #f8e359, #d29d09), // yellow
+   (#ffead1, #ffcb62, #d68400), // gold
+   (#ffe5c5, #ffa95a, #ed5b00), // orange
+   (#f8d2ce, #f78773, #e62d42), // raspberry
+   (#fac7de, #e973ab, #e33b6a), // magenta
+   (#e7c2e8, #cb78d4, #9945b5), // purple
+   (#d5d2f5, #9e91e8, #7a59ca), // violet
+   (#f2eade, #e3cf9c, #b08952), // beige
+   (#e5d6ca, #be916d, #785336), // brown
+   (#d8d7d3, #c0bfbc, #6e6d71), // gray
+  );
+
+  @for $i from 1 through length($avatarcolorlist) {
+    &.color#{$i} {
+      $avatarcolor: nth($avatarcolorlist, $i);
+      background-image: linear-gradient(nth($avatarcolor, 2), nth($avatarcolor, 3));
+      color: nth($avatarcolor, 1);
+    }
+  }
+
+  &.contrasted { color: white; }
+
+  &.image { background: none; }
+}
+
+// Card
+.card {
+  @at-root %card, & {
+    border-radius: $corner-radius;
+    border: none;
+    background-clip: padding-box;
+    color: $text-secondary;
+    box-shadow: $shadow-z2, inset 0 1px highlight($surface);
+    outline: none;
+    background-color: $surface;
+    color: $text;
+  }
+
+  &.activatable {
+    transition: $transition;
+
+    &:hover {
+      background-image: none;
+      @include button(hover);
+    }
+
+    &:active {
+      background-image: none;
+      @include button(active);
+    }
+  }
+
+  separator { background-color: $frame; }
+}
+
+//
+// Toasts
+//
+
+toast {
+  margin: $space-size * 2;
+  margin-bottom: $space-size * 4;
+  border-radius: $circular-radius;
+  border-spacing: $space-size;
+  padding: $space-size;
+  box-shadow: $shadow-z6, inset 0 1px highlight($popover);
+  background-color: $popover;
+  color: on($popover);
+  border: none;
+
+  &:dir(ltr) { padding-left: $space-size * 2; }
+  &:dir(rtl) { padding-right: $space-size * 2; }
+
+  > label {
+    margin: 0 $space-size;
+  }
+}
+
+//
+// viewswitcher
+//
+
+viewswitcher {
+  margin: 0;
+
+  button.toggle {
+    font-weight: bold;
+    padding: 0;
+
+    > stack > box {
+      &.narrow {
+        font-size: 0.75rem;
+        padding-top: $space-size;
+        padding-bottom: $space-size - 2px;
+        border-spacing: $space-size - 2px;
+
+        > stack > label {
+          padding-left: $space-size;
+          padding-right: $space-size;
+        }
+      }
+
+      &.wide {
+        padding: 2px $space-size * 2;
+        border-spacing: $space-size;
+      }
+    }
+  }
+
+  &.wide {
+    border-spacing: 0;
+
+    button.toggle {
+      @extend %linked;
+
+      &.flat:focus {
+        outline: none;
+        box-shadow: 0 2px 3px -1px rgba(black, 0.05);
+      }
+    }
+  }
+
+  &.narrow button.toggle {
+    transition: $transition, border-image $ripple-fade-in-duration $ease-out;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    color: $titlebar-text-secondary;
+    border-image: radial-gradient(circle closest-corner at center calc(100% - 1px),
+                                  transparent 0%,
+                                  transparent 0%)
+                                  0 0 0 / 0 0 0px;
+
+    &:hover {
+      color: $titlebar-text;
+      transition: $transition, border-image $ripple-fade-in-duration $ease-out;
+      background-image: none;
+      background-color: transparent;
+      box-shadow: none;
+      box-shadow: inset 0 -2px mix($primary-left, $titlebar, 50%);
+    }
+
+    &:active {
+      color: $titlebar-text;
+      background-image: none;
+      background-color: transparent;
+      box-shadow: none;
+      transition: $transition, border-image $ripple-fade-in-duration $ease-out;
+      border-image: radial-gradient(circle closest-corner at center calc(100% - 1px),
+                                    $primary-right 100%,
+                                    mix($primary-left, $titlebar, 50%) 0%)
+                                    0 0 2 / 0 0 2px;
+    }
+
+    &:checked {
+      color: $titlebar-text;
+      background-image: none;
+      background-color: transparent;
+      box-shadow: none;
+      border-image: linear-gradient(to right,
+                                    $primary-left,
+                                    $primary-right)
+                                    0 0 2 / 0 0 2px;
+
+       &:disabled, &:backdrop {
+         color: $titlebar-text-disabled;
+       }
+    }
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+      background-color: transparent;
+    }
+  }
+}
+
+// AdwViewSwitcherBar
+viewswitcherbar actionbar > revealer > box {
+  padding: 0;
+
+  viewswitcher.narrow button.toggle {
+    &:hover {
+      box-shadow: inset 0 2px mix($primary-left, $base, 50%);
+    }
+
+    &:active {
+      border-image: radial-gradient(circle closest-corner at center calc(100% - 1px),
+                                    $primary-right 100%,
+                                    mix($primary-left, $base, 50%) 0%)
+                                    2 0 0 / 2px 0 0;
+    }
+
+    &:checked {
+      border-image: linear-gradient(to right,
+                                    $primary-left,
+                                    $primary-right)
+                                    2 0 0 / 2px 0 0;
+    }
+  }
+}
+
+// AdwViewSwitcherTitle
+viewswitchertitle {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  viewswitcher {
+    margin-left: $space-size * 2;
+    margin-right: $space-size * 2;
+
+    &.narrow {
+      margin-top: 0;
+      margin-bottom: 0;
+
+      button.toggle {
+        > stack > box {
+          &.narrow {
+            padding-top: 0;
+            padding-bottom: 0;
+            border-spacing: 0;
+          }
+        }
+      }
+    }
+
+    &.wide {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  windowtitle {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+// AdwIndicatorBin
+indicatorbin {
+  > indicator, > mask {
+    min-width: $space-size;
+    min-height: $space-size;
+    border-radius: $circular-radius;
+  }
+
+  > indicator {
+    margin: 1px;
+    background-color: gtkalpha(currentColor, .4);
+
+    > label {
+      font-size: 0.6rem;
+      font-weight: bold;
+      padding: 1px 4px;
+      color: white;
+    }
+  }
+
+  > mask {
+    padding: 1px;
+    background: black;
+  }
+
+  &.needs-attention > indicator {
+    background-color: $primary;
+
+    > label { color: on($primary); }
+  }
+}
+
+
+//
+// preferencespage
+//
+
+preferencespage > scrolledwindow > viewport > clamp > box {
+  margin: $space-size * 4 $space-size * 2;
+  border-spacing: $space-size *4;
+}
+
+preferencesgroup > box {
+  &, .labels {
+    border-spacing: $space-size;
+  }
+
+  > box.header:not(.single-line) {
+    margin-bottom: $space-size;
+  }
+
+  > box.single-line {
+    min-height: 34px;
+  }
+
+  button.background-preview-button.toggle {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    outline-color: transparent;
+    outline-width: 3px;
+    outline-offset: $space-size / 2;
+    outline-style: solid;
+
+    &, > background-preview {
+      border-radius: $corner-radius;
+    }
+
+    &:hover {
+      outline-color: $fill;
+    }
+
+    &:active {
+      outline-color: $track;
+    }
+
+    &:checked {
+      outline-color: $primary;
+    }
+  }
+
+  .cutout-button { background-color: $base-alt; }
+}
+
+//
+// AdwAboutWindow
+//
+
+ window.about {
+  .main-page {
+    > viewport > clamp > box {
+      margin: $space-size * 2;
+      border-spacing: $space-size;
+
+      > box {
+        margin-top: $space-size * 3;
+        border-spacing: $space-size * 3;
+        margin-bottom: $space-size;
+      }
+    }
+
+    .app-version {
+      padding: $space-size / 2 $space-size * 3;
+      border-radius: $corner-radius;
+      margin-top: $space-size / 2;
+      background-color: $overlay-normal;
+
+      &:hover {
+        background-color: $overlay-hover;
+      }
+
+      &:focus {
+        background-color: $overlay-focus;
+
+        &:hover {
+          background-color: $overlay-focus-hover;
+          outline: none;
+        }
+      }
+
+      &:active, &:focus:active {
+        background-color: $overlay-active;
+        outline: none;
+      }
+
+      &, &:hover, &:focus, &:active {
+        color: $primary;
+        background-image: none;
+      }
+    }
+  }
+
+  .subpage {
+    > viewport > clamp > box {
+      margin: $space-size * 3 $space-size * 2;
+      border-spacing: $space-size * 3;
+    }
+
+    > clamp > textview {
+      background: none;
+      color: inherit;
+    }
+  }
+}
+
+//
+// AdwStatusPage
+//
+
+statuspage {
+  > scrolledwindow > viewport > box {
+    margin: $space-size * 6 $space-size * 2;
+    border-spacing: $space-size * 6;
+
+    > clamp > box {
+      border-spacing: $space-size * 2;
+
+      > .icon {
+        -gtk-icon-size: 128px;
+
+        color: gtkalpha(currentColor, 0.55);
+
+        &:disabled {
+          opacity: 0.35;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: $space-size * 4;
+        }
+      }
+    }
+  }
+
+  &.compact > scrolledwindow > viewport > box {
+    margin: $space-size * 4 $space-size * 2;
+    border-spacing: $space-size * 4;
+
+    > clamp > box {
+      > .icon {
+        -gtk-icon-size: 96px;
+
+        &:not(:last-child) {
+          margin-bottom: $space-size * 2;
+        }
+      }
+
+      > .title {
+        font-size: 18pt;
+      }
+    }
+  }
+}
+
+// ThemeSelector
+themeselector, // Gnome text editor
+panelthemeselector { // Gnome builder
+  margin: $space-size * 1.5;
+
+  checkbutton {
+    padding: 0;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 1px;
+    background-clip: content-box;
+    border-radius: $circular-radius;
+    box-shadow: inset 0 0 0 1px $border;
+
+    &.follow:checked,
+    &.light:checked,
+    &.dark:checked {
+      box-shadow: inset 0 0 0 2px $primary;
+    }
+
+    &.follow {
+      background-image: linear-gradient(to bottom right, #ffffff 50%, #202020 50%);
+    }
+
+    &.light {
+      background-color: #ffffff;
+    }
+
+    &.dark {
+      background-color: #202020;
+    }
+
+    &.theme-selector radio {
+      -gtk-icon-source: none;
+      border: none;
+      background: none;
+      box-shadow: none;
+      min-height: 20px;
+      min-width: 20px;
+      padding: 0;
+
+      &:hover, &:active, &:checked {
+        background-color: transparent;
+      }
+
+      &:checked {
+        -gtk-icon-size: 20px;
+        -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/scalable/checkbox-checked-symbolic.svg")), -gtk-recolor(url("assets/scalable/checkbox-checked-symbolic@2.svg")));
+        color: on($primary);
+        background-image: linear-gradient(to right, $primary-left, $primary-right);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: auto;
+
+        &, &:hover, &:active {
+          box-shadow: 0 2px 3px -1px rgba(black, 0.08), 0 1px 2px 0 rgba(black, 0.1);
+        }
+      }
+    }
+  }
+}
+
+themeswitcher { // Gnome console
+  padding: $space-size;
+
+  .check {
+    min-height: 20px;
+    min-width: 20px;
+    background: none;
+    padding: 0;
+    margin: 0;
+    border-radius: $circular-radius;
+    color: on($primary);
+    background-image: linear-gradient(to right, $primary-left, $primary-right);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+
+    &, &:hover, &:active {
+      box-shadow: 0 2px 3px -1px rgba(black, 0.08), 0 1px 2px 0 rgba(black, 0.1);
+    }
+  }
+
+  checkbutton {
+    padding: 0;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 1px;
+    background-clip: content-box;
+    border-radius: $circular-radius;
+    box-shadow: inset 0 0 0 1px $border;
+
+    &:checked {
+      box-shadow: inset 0 0 0 2px $primary;
+    }
+
+    radio {
+      &, &:hover, &:active, &:checked, &:checked:hover, &:checked:active {
+        background-color: transparent;
+        border: none;
+        background: none;
+        box-shadow: none;
+        color: transparent;
+        -gtk-icon-source: none;
+        -gtk-icon-size: 0;
+      }
+    }
+
+    &.system {
+      background: linear-gradient(-45deg, #1e1e1e 50%, white 50%);
+    }
+
+    &.light {
+      color: gtkalpha(black, .8);
+      background-color: white;
+    }
+
+    &.dark {
+      color: white;
+      background-color: #1e1e1e;
+    }
+  }
+}
+
+navigation-view-page .medium {
+  stack {
+    padding-top: $space-size * 2;
+  }
+}
+
+// Transition shadows
+flap,
+leaflet,
+navigation-view,
+overlay-split-view {
+  @include transition-shadows($frame);
+}
+
+toolbarview.undershoot-top scrolledwindow {
+  @include undershoot(top);
+}
+
+toolbarview.undershoot-bottom scrolledwindow {
+  @include undershoot(bottom);
+}
+
+// Sidebar
+.sidebar-pane {
+  background-color: $base-alt;
+  color: $text;
+
+  &:backdrop {
+    background-color: $background;
+    transition: background-color $duration $ease-out;
+  }
+
+  headerbar {
+    border-top-right-radius: 0;
+  }
+
+  .navigation-sidebar,
+  searchbar > revealer > box {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+  }
+
+  banner > revealer > widget {
+    background-color: gtkmix($primary, $base-alt, 30%);
+    color: $text;
+
+    &:backdrop {
+      background-color: gtkmix($primary, $base-alt, 30%);
+    }
+  }
+}
+
+.content-pane {
+  headerbar {
+    border-top-left-radius: 0;
+  }
+}
+
+/* Middle pane in three-pane setups */
+.content-pane .sidebar-pane,
+.sidebar-pane .content-pane {
+  background-color: $base;
+  color: $text;
+
+  &:backdrop {
+    background-color: $background;
+    transition: background-color $duration $ease-out;
+  }
+
+  banner > revealer > widget {
+    background-color: gtkmix($primary, $base, 30%);
+    color: $text;
+
+    &:backdrop {
+      background-color: gtkmix($primary, $base, 30%);
+    }
+  }
+}
+
+.sidebar-pane,
+.content-pane .sidebar-pane,
+.sidebar-pane .content-pane {
+  flap,
+  leaflet,
+  navigation-view,
+  overlay-split-view {
+    @include transition-shadows($frame);
+  }
+
+  &:dir(ltr), &.end:dir(rtl) {
+    &, banner > revealer > widget {
+      box-shadow: none;
+      border-right: 1px solid $window-border;
+    }
+  }
+
+  &:dir(rtl), &.end:dir(ltr) {
+    &, banner > revealer > widget {
+      box-shadow: none;
+      border-left: 1px solid $window-border;
+    }
+  }
+}
+
+.sidebar-pane .sidebar-pane {
+  background-color: transparent;
+  color: inherit;
+}
+
+.sidebar-pane, .content-pane {
+  headerbar {
+    &, &:backdrop {
+      background-color: transparent;
+      box-shadow: inset 0 1px highlight($titlebar);
+    }
+  }
+
+  toolbarview.undershoot-top scrolledwindow {
+    @include undershoot(top, $style: 'compact');
+  }
+
+  toolbarview.undershoot-bottom scrolledwindow {
+    @include undershoot(bottom, $style: 'compact');
+  }
+
+  scrolledwindow {
+    &.undershoot-top {
+      @include undershoot(top, $style: 'compact');
+    }
+
+    &.undershoot-bottom {
+      @include undershoot(bottom, $style: 'compact');
+    }
+
+    &.undershoot-start {
+      &:dir(ltr) { @include undershoot(left, $style: 'compact'); }
+      &:dir(rtl) { @include undershoot(right, $style: 'compact'); }
+    }
+
+    &.undershoot-end {
+      &:dir(ltr) { @include undershoot(right, $style: 'compact'); }
+      &:dir(rtl) { @include undershoot(left, $style: 'compact'); }
+    }
+  }
+}
+
+//
+// AdwToolbarView
+//
+
+toolbarview {
+  > .top-bar,
+  > .bottom-bar {
+    searchbar,
+    actionbar {
+      > revealer > box {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    .toolbar {
+      background-color: transparent;
+      padding: 0 0 0 6px;
+      border-spacing: 0;
+    }
+
+    .collapse-spacing {
+      padding-top: 0;
+      padding-bottom: 0;
+
+      headerbar {
+        min-height: $large-size;
+
+        > windowhandle > box {
+          padding-top: $space-size;
+          padding-bottom: $space-size;
+        }
+
+        &.default-decoration {
+          min-height: $small-size;
+
+          > windowhandle > box {
+            padding-top: $space-size;
+            padding-bottom: $space-size;
+          }
+        }
+      }
+
+      searchbar,
+      actionbar {
+        > revealer > box {
+          padding-top: $space-size;
+          padding-bottom: $space-size;
+        }
+      }
+
+      .toolbar  {
+        padding-top: $space-size;
+        padding-bottom: $space-size;
+      }
+
+      tabbar {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    &.raised {
+      background-color: transparent;
+      color: $titlebar-text;
+
+      &:backdrop {
+        background-color: transparent;
+      }
+    }
+
+    &:backdrop > windowhandle {
+      filter: none;
+    }
+  }
+
+  .top-bar {
+    box-shadow: none;
+    background-color: transparent;
+
+    &:backdrop {
+      background-color: transparent;
+    }
+
+    .info &,
+    .about & {
+      &, &:backdrop {
+        background-color: transparent;
+      }
+    }
+
+    .collapse-spacing {
+      padding: 0;
+    }
+
+    windowhandle {
+      filter: none;
+    }
+  }
+
+  > .bottom-bar {
+    padding: 0;
+    border-spacing: 0;
+    box-shadow: inset 0 1px $border;
+    background-color: $base-alt;
+    color: $text;
+
+    &:backdrop {
+      background-color: $background;
+      color: $text-disabled;
+    }
+
+    actionbar > revealer > box {
+      background-color: transparent;
+      color: inherit;
+      box-shadow: none;
+      padding-top: $space-size;
+
+      &:backdrop {
+        background-color: transparent;
+        transition: none;
+
+        > * {
+          filter: none;
+          transition: none;
+        }
+      }
+    }
+  }
+
+  > .top-bar.raised {
+    box-shadow: none;
+
+    &.border {
+      box-shadow: none;
+    }
+  }
+
+  > .bottom-bar.raised {
+    box-shadow: none;
+
+    &.border {
+      box-shadow: none;
+    }
+  }
+}

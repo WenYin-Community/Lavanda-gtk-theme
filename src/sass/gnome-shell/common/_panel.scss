@@ -1,0 +1,275 @@
+/* Top Bar */
+// a.k.a. the panel
+
+#panel {
+  background-color: $panel;
+  font-weight: bold;
+  height: if($compact == 'false', 2.4em, 2em);
+  color: $panel-text-secondary;
+  font-feature-settings: "tnum";
+  transition-duration: 250ms;
+  border: none;
+  box-shadow: none;
+  // @include fontsize($font_size - 1);
+
+  // the rounded outset corners
+  .panel-corner {
+    -panel-corner-radius: 0;
+    -panel-corner-background-color: $panel;
+    -panel-corner-border-width: 2px;
+    -panel-corner-border-color: transparent;
+    -panel-corner-opacity: 1;
+    transition-duration: 250ms;
+  }
+
+  // panel menus
+  .panel-button {
+    -natural-hpadding: $base_padding * 2;
+    -minimum-hpadding: $base_padding * 2;
+    font-weight: bold;
+    color: $panel-text-secondary;
+    transition-duration: 150ms;
+    border-radius: $circular_radius;
+    text-shadow: none;
+    border: $base_padding / 2 solid transparent;
+    background-gradient-direction: horizontal;
+    background-gradient-start: transparent;
+    background-gradient-end: transparent;
+
+    &.clock-display {
+      .clock {
+        transition-duration: 150ms;
+        border: $base_padding / 2 solid transparent;
+        border-radius: $circular_radius;
+        background-gradient-direction: horizontal;
+        background-gradient-start: transparent;
+        background-gradient-end: transparent;
+      }
+    }
+
+    &:hover {
+      color: $panel-text;
+      background-color: transparent;
+      box-shadow: 0 2px 3px -1px rgba(black, 0.04);
+      background-gradient-start: if($topbar == 'light', white, overlay($panel, hover));
+      background-gradient-end: if($topbar == 'light', white, overlay($panel, hover));
+
+      &.clock-display {
+        box-shadow: none;
+        color: $panel-text-secondary;
+        background-color: transparent;
+        background-gradient-start: transparent;
+        background-gradient-end: transparent;
+
+        .clock {
+          color: $panel-text;
+          background-color: transparent;
+          box-shadow: 0 2px 3px -1px rgba(black, 0.04);
+          background-gradient-start: if($topbar == 'light', white, overlay($panel, hover));
+          background-gradient-end: if($topbar == 'light', white, overlay($panel, hover));
+        }
+      }
+    }
+
+    &:active, &:overview, &:focus, &:checked {
+      &, &:hover {
+        color: on($primary-left);
+        background-color: transparent;
+        box-shadow: 0 2px 3px -1px rgba(black, 0.08);
+        background-gradient-start: $primary-left;
+        background-gradient-end: $primary-right;
+      }
+
+      &.clock-display {
+        box-shadow: none;
+        color: $panel-text-secondary;
+        background-color: transparent;
+        background-gradient-start: transparent;
+        background-gradient-end: transparent;
+
+        .clock {
+          color: on($primary-left);
+          background-color: transparent;
+          box-shadow: 0 2px 3px -1px rgba(black, 0.08);
+          background-gradient-start: $primary-left;
+          background-gradient-end: $primary-right;
+        }
+      }
+    }
+
+    .unlock-screen &,
+    .login-screen &,
+    .lock-screen & {
+      &, &:focus, &:hover { color: $panel-text; }
+    }
+
+    // status area icons
+    .system-status-icon {
+      icon-size: $base_icon_size;
+      padding: $base_padding;
+      margin: 0;
+      -st-icon-style: symbolic;
+    }
+
+    .appindicator-trayicons-box {
+      margin: 0 $base_padding;
+    }
+
+    // .panel-status-indicators-box .system-status-icon,
+    // .panel-status-menu-box .system-status-icon {
+    //   margin: 0;
+    // }
+
+    // .panel-status-indicators-box,
+    // .panel-status-menu-box {
+    //   spacing: $base_padding / 2;
+    // }
+  
+    // // spacing between power icon and (optional) percentage label
+    // .power-status.panel-status-indicators-box {
+    //   spacing: 0;
+    // }
+
+    // app menu icon
+    .app-menu-icon {
+      -st-icon-style: symbolic;
+      // dimensions of the icon are hardcoded
+    }
+
+    &#panelActivities { // Activities button
+      -natural-hpadding: $base_padding * 3 !important;
+      -minimum-hpadding: $base_padding * 3 !important;
+      // background-image: url("assets/activities.svg");
+      // background-position: center center;
+      // background-size: 24px 24px;
+      // width: 24px;
+      // height: 24px;
+      // background-gradient-direction: none;
+      // font-size: 0;
+
+      // > * { width: 24px; }
+
+      // &, &:active, &:overview, &:focus, &:checked {
+      //   color: transparent;
+      // }
+
+      // &:overview {
+      //   background-color: transparent;
+      // }
+
+      // @if $variant == 'light' {
+      //   &:overview {
+      //     background-image: url("assets/activities-white.svg");
+      //   }
+      // }
+
+      StBoxLayout {
+        spacing: $base_padding;
+      }
+
+      .workspace-dot {
+        border-radius: $circular_radius;
+        min-width: 8px;
+        min-height: 8px;
+        background-color: $panel-text;
+      }
+    }
+  }
+
+  // transparent panel on lock & login screens
+  &:overview,
+  &.unlock-screen,
+  &.login-screen,
+  &.lock-screen {
+    background-color: transparent;
+    box-shadow: none;
+
+    StLabel, StIcon { color: on($osd, secondary); }
+
+    .panel-button {
+      &:hover {
+        color: on($osd);
+        background-color: transparent;
+        box-shadow: none;
+        background-gradient-start: overlay($osd, hover);
+        background-gradient-end: overlay($osd, hover);
+
+        &.clock-display {
+          box-shadow: none;
+          color: on($osd);
+          background-color: transparent;
+          background-gradient-start: transparent;
+          background-gradient-end: transparent;
+
+          .clock {
+            color: on($osd);
+            box-shadow: none;
+            background-color: transparent;
+            background-gradient-start: overlay($osd, hover);
+            background-gradient-end: overlay($osd, hover);
+          }
+        }
+      }
+
+      &:active, &:overview, &:focus, &:checked {
+        color: on($primary-left);
+        background-color: transparent;
+        box-shadow: none;
+        background-gradient-start: $primary-left;
+        background-gradient-end: $primary-right;
+
+        &.clock-display {
+          box-shadow: none;
+          color: on($osd);
+          background-color: transparent;
+          background-gradient-start: transparent;
+          background-gradient-end: transparent;
+
+          .clock {
+            box-shadow: none;
+            color: on($primary-left);
+            background-color: transparent;
+            background-gradient-start: $primary-left;
+            background-gradient-end: $primary-right;
+          }
+        }
+      }
+
+      &#panelActivities .workspace-dot {
+        background-color: on(dark);
+      }
+    }
+
+    .panel-corner {
+      -panel-corner-radius: 0;
+      -panel-corner-background-color: transparent;
+      -panel-corner-border-color: transparent;
+    }
+  }
+
+  // Gjs_ui_panel_AggregateMenu.panel-button,
+  Gjs_arcmenu_arcmenu_com_menuButton_Arc_Menu_MenuButton.panel-button,
+  Gjs_arcmenu_arcmenu_com_menuButton_ArcMenu_MenuButton.panel-button,
+  Gjs_arcmenu_arcmenu_com_menuButton_ArcMenuMenuButton.panel-button {
+    -natural-hpadding: $base_padding * 4 !important;
+    -minimum-hpadding: $base_padding * 4 !important;
+
+    .panel-status-menu-box {
+      spacing: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  // Input indicators
+  Gjs_status_keyboard_InputSourceIndicator.panel-button, // Ibus
+  Gjs_appindicatorsupport_rgcjonas_gmail_com_indicatorStatusIcon_IndicatorStatusIcon.panel-button,
+  Gjs_appindicatorsupport_rgcjonas_gmail_com_indicatorStatusIcon_AppIndicatorsIndicatorStatusIcon.panel-button { // Fcitx
+    -natural-hpadding: $base_padding * 3 !important;
+    -minimum-hpadding: $base_padding * 3 !important;
+  }
+
+  // indicator for active
+  .screencast-indicator,
+  .remote-access-indicator { color: $warning; }
+}

@@ -1,0 +1,55 @@
+// Search entry
+%search-entry, .search-entry {
+  margin-top: $base_padding * 2;
+  margin-bottom: $base_padding;
+  width: 24em;
+  padding: $base_padding $base_padding * 1.5;
+  transition-duration: 150ms;
+  border-radius: $base_radius;
+  caret-color: on($osd);
+  selection-background-color: on($osd, divider);
+  selected-color: on($primary) !important;
+  @include entry(normal, $bc: $osd);
+
+  &:hover {
+    @include entry(hover, $bc: $osd);
+  }
+
+  &:focus {
+    @include entry(focus, $bc: $osd);
+  }
+
+  &:insensitive {
+    @include entry(insensitive, $bc: $osd);
+  }
+
+  .search-entry-icon {
+    icon-size: 16px;
+    padding: 0 0;
+    color: on($osd, secondary-disabled);
+  }
+
+  &:hover, &:focus {
+    .search-entry-icon { color: on($osd, secondary); }
+  }
+
+  StLabel.hint-text {
+    color: on($osd, disabled);
+  }
+}
+
+.popup-menu .search-entry { // reset
+  @extend %entry;
+
+  .search-entry-icon {
+    color: on($base, secondary-disabled);
+  }
+
+  &:hover, &:focus {
+    .search-entry-icon { color: on($base, secondary); }
+  }
+
+  StLabel.hint-text {
+    color: on($base, disabled);
+  }
+}

@@ -1,0 +1,23 @@
+
+// do-not-disturb + clear button
+.message-list-controls {
+  padding: $base_padding $base_padding $base_padding $base_padding * 5 !important;
+  spacing: $base_spacing;
+  font-weight: normal;
+
+  .dnd-button {
+    font-weight: normal;
+  }
+}
+
+.message-media-control {
+  margin: ($base_padding * 2 + 8px) $base_padding !important;
+  padding: $base_padding * 2 !important;
+}
+
+// album-art
+.media-message-cover-icon {
+  &.fallback {
+    padding: $base_padding;
+  }
+}

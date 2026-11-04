@@ -1,0 +1,12 @@
+/* Switches */
+
+.toggle-switch {
+  width: 46px;
+  height: 24px;
+  background-size: contain;
+  background-image: url("assets/toggle-off.svg");
+
+  &:checked {
+    background-image: url("assets/toggle-on.svg");
+  }
+}
