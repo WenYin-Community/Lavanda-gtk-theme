@@ -30,6 +30,8 @@
 
 - Added GNOME Shell 48–51 support; 48–50 share the `48-0` branch, 51+ uses the new `51-0` branch.
 - GNOME Shell 51: new login/lock screen layout, authentication method menu, Web login view and QR code.
+- 1.0.3: fixed GNOME Shell 51 lock-screen media notifications (`.message`), login prompt layout, panel status indicator spacing and the light panel border.
+- `build.sh` now selects the GNOME Shell style branch automatically, matching `install.sh`.
 - Filled selector gaps for GNOME Shell 40–47 (authentication list, screen recording/sharing indicators, calendar events, Looking Glass, message actions, etc.).
 - Added the missing libadwaita 1.4+ color definitions (`sidebar_*`, `secondary_sidebar_*`, `thumbnail_*`).
 
@@ -82,6 +84,15 @@ Run the following commands in the terminal:
 ```
 
 > For more information, run: `./install.sh --help`
+
+### GDM login screen
+
+`./install.sh` installs into `~/.themes` (or `/usr/share/themes` when run as
+root), which themes the user session and its lock screen. The GDM greeter runs
+in its own session and does not read user themes, so the login screen is not
+themed automatically. To theme it, install as root and configure GDM to use the
+theme (the exact mechanism is distribution-specific), or copy the generated
+`gnome-shell/gnome-shell.css` into the greeter's shell theme directory.
 
 ### Fix for Xfce Whiskermenu black background
 

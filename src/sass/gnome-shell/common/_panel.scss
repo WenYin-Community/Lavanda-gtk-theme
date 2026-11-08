@@ -10,6 +10,10 @@
   transition-duration: 250ms;
   border: none;
   box-shadow: none;
+
+  @if $variant == 'light' {
+    box-shadow: inset 0 -0.5px 0 0 $divider;
+  }
   // @include fontsize($font_size - 1);
 
   // the rounded outset corners
@@ -115,20 +119,20 @@
       margin: 0 $base_padding;
     }
 
-    // .panel-status-indicators-box .system-status-icon,
-    // .panel-status-menu-box .system-status-icon {
-    //   margin: 0;
-    // }
+    .panel-status-indicators-box .system-status-icon,
+    .panel-status-menu-box .system-status-icon {
+      margin: 0;
+    }
 
-    // .panel-status-indicators-box,
-    // .panel-status-menu-box {
-    //   spacing: $base_padding / 2;
-    // }
-  
-    // // spacing between power icon and (optional) percentage label
-    // .power-status.panel-status-indicators-box {
-    //   spacing: 0;
-    // }
+    .panel-status-indicators-box,
+    .panel-status-menu-box {
+      spacing: $base_padding / 2;
+    }
+
+    // spacing between power icon and (optional) percentage label
+    .power-status.panel-status-indicators-box {
+      spacing: 0;
+    }
 
     // app menu icon
     .app-menu-icon {

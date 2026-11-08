@@ -64,6 +64,7 @@
     StIcon { icon-size: 16px; }
   }
 
+  .caps-lock-warning-label,
   .login-dialog-message-warning {
     color: on(black, secondary);
   }
@@ -91,6 +92,16 @@
   padding-top: 1em;
   &:hover { color: on(black, secondary); }
   &:focus { background-color: on(black, divider); }
+}
+
+.login-dialog-not-listed-button {
+  padding: $base_padding * 1.5 $base_padding * 2;
+  border-radius: $base_radius;
+  background-color: $divider;
+  color: on(black);
+
+  &:hover, &:focus { background-color: $track; }
+  &:active { background-color: $primary; color: on($primary); }
 }
 
 .login-dialog-user-list-view { -st-vfade-offset: 1em; }
@@ -128,6 +139,10 @@
   &:active, &:focus:active {
     background-color: $track !important;
     color: on(black, secondary);
+  }
+
+  &:logged-in .user-icon StIcon {
+    color: on($primary);
   }
 
   .login-dialog-timed-login-indicator {

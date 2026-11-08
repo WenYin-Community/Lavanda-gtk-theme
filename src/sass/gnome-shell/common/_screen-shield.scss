@@ -36,6 +36,7 @@
   }
 
   .notification,
+  .message,
   .unlock-dialog-notification-source {
     padding: 12px 6px;
     border: none;
@@ -44,6 +45,18 @@
     border-radius: $menu_radius;
 
     &.critical { background-color: lighten($osd, 8%); }
+
+    .message-header { color: on($osd); }
+
+    StButton {
+      border-radius: $circular_radius;
+      background-color: transparent;
+      color: on($osd);
+
+      &:hover, &:focus { background-color: $divider; }
+      &:active { background-color: $track; }
+      &:insensitive { opacity: 0.5; }
+    }
   }
 }
 

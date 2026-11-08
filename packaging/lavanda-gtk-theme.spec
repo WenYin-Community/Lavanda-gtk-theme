@@ -1,5 +1,5 @@
 Name:           lavanda-gtk-theme
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Lavanda GTK theme suite
 
@@ -42,6 +42,12 @@ fi
 %{_datadir}/lavanda-gtk-theme
 
 %changelog
+* Sun Nov 08 2026 Wenyin Root <wenyin@ruojiner.cn> - 1.0.3-1
+- Fix GNOME Shell 51 compatibility: lock-screen media notifications,
+  login prompt layout, panel status indicator spacing, light panel border.
+- Make build.sh select the GNOME Shell style branch automatically.
+- Document GDM login screen theming.
+
 * Wed Nov 04 2026 Wenyin Root <wenyin@ruojiner.cn> - 1.0.2-1
 - Initial package: GTK 2/3/4 and GNOME Shell 3.28–51 theme suite,
   including Cinnamon, XFCE and MATE support.

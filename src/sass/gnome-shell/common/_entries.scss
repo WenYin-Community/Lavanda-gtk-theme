@@ -20,7 +20,7 @@ StEntry, %entry {
     padding: 0 $base_margin;
   }
   StLabel.hint-text {
-    margin-left: $base_margin * 0.5;
+    margin-left: $base_margin * 2;
     color: $text-disabled;
   }
 }

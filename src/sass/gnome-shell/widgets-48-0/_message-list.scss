@@ -39,7 +39,7 @@
 
 .message-list-sections {
   margin: 0; // to account for scrollbar
-  padding-bottom: $base_padding;
+  padding-bottom: $base_padding * 1.5;
 
   // to account for scrollbar
   &:ltr { margin-right: 0; }

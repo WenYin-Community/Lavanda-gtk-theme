@@ -324,9 +324,7 @@
     font-feature-settings: "tnum";
     @include fontsize($font_size);
     color: $text;
-
-    &:ltr { text-align: right; }
-    &:rtl { text-align: left; }
+    text-align: end;
   }
 
   .world-clocks-timezone {
