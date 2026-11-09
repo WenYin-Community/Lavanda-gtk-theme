@@ -55,6 +55,8 @@ else
   GS_VERSION="51-0"
 fi
 
+cp -rf src/sass/_options.scss src/sass/_options-temp.scss
+cp -rf src/sass/gnome-shell/_options.scss src/sass/gnome-shell/_options-temp.scss
 cp -rf src/sass/gnome-shell/_common.scss src/sass/gnome-shell/_common-temp.scss
 sed -i "/\widgets/s/40-0/${GS_VERSION}/" src/sass/gnome-shell/_common-temp.scss
 if [ "${GS_VERSION}" = '3-28' ]; then

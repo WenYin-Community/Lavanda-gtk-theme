@@ -1,4 +1,6 @@
 
+src/sass/_options-temp.scss
+src/sass/gnome-shell/_options-temp.scss
 src/sass/gnome-shell/_common-temp.scss
 src/main/cinnamon/cinnamon-Dark.css
 src/main/cinnamon/cinnamon-Light.css
