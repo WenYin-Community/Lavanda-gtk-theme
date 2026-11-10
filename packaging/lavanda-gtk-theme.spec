@@ -1,5 +1,5 @@
 Name:           lavanda-gtk-theme
-Version:        1.0.3
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        Lavanda GTK theme suite
 
@@ -42,6 +42,10 @@ fi
 %{_datadir}/lavanda-gtk-theme
 
 %changelog
+* Tue Nov 10 2026 Wenyin Root <wenyin@ruojiner.cn> - 1.1.0-1
+- Add install-freebsd.sh: standalone POSIX sh installer for FreeBSD with
+  per-user installation and automatic GNOME Shell detection.
+
 * Sun Nov 08 2026 Wenyin Root <wenyin@ruojiner.cn> - 1.0.3-1
 - Fix GNOME Shell 51 compatibility: lock-screen media notifications,
   login prompt layout, panel status indicator spacing, light panel border.

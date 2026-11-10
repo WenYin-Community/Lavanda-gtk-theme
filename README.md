@@ -30,6 +30,7 @@
 
 - Added GNOME Shell 48–51 support; 48–50 share the `48-0` branch, 51+ uses the new `51-0` branch.
 - GNOME Shell 51: new login/lock screen layout, authentication method menu, Web login view and QR code.
+- 1.1.0: added `install-freebsd.sh`, a standalone POSIX `sh` installer for FreeBSD with per-user installs and automatic GNOME Shell detection.
 - 1.0.3: fixed GNOME Shell 51 lock-screen media notifications (`.message`), login prompt layout, panel status indicator spacing and the light panel border.
 - `build.sh` now selects the GNOME Shell style branch automatically, matching `install.sh`.
 - Filled selector gaps for GNOME Shell 40–47 (authentication list, screen recording/sharing indicators, calendar events, Looking Glass, message actions, etc.).
@@ -84,6 +85,25 @@ Run the following commands in the terminal:
 ```
 
 > For more information, run: `./install.sh --help`
+
+### FreeBSD
+
+`install-freebsd.sh` is a standalone POSIX `sh` installer for FreeBSD (no bash
+required, does not call `build.sh`/`install.sh`):
+
+```sh
+sudo pkg install sassc
+./install-freebsd.sh
+```
+
+It installs per-user into `$XDG_DATA_HOME/themes` or `~/.themes`, accepts the
+same options as `install.sh`, and skips the GNOME Shell theme when
+`gnome-shell` is not installed. For example:
+
+```sh
+./install-freebsd.sh -t sea -c dark -s compact
+./install-freebsd.sh -u
+```
 
 ### GDM login screen
 
