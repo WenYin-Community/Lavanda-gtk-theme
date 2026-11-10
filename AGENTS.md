@@ -48,7 +48,10 @@ wallpaper/               壁纸源文件与 XML
 ./install.sh              # 安装到 ~/.themes；root 用户装到 /usr/share/themes
 ./install.sh -d /tmp/lavanda-test -t sea -c dark -s compact   # 临时目录验证
 ./install.sh -u           # 卸载已安装主题
+./install-freebsd.sh      # FreeBSD：POSIX sh 独立安装，默认用户级；无 gnome-shell 时跳过 Shell 样式
 ```
+
+FreeBSD 的 `sassc` 包名与命令同名，缺失时执行 `sudo pkg install sassc`。
 
 ## 开发约定
 
@@ -58,6 +61,7 @@ wallpaper/               壁纸源文件与 XML
 - GNOME Shell 样式按版本分文件（`_widgets-3-28.scss` 至 `_widgets-51-0.scss`），改动需检查相邻版本；`install.sh` 依据 `gnome-shell --version` 选择 `GS_VERSION`（48–50 用 48-0，51+ 用 51-0）。51 的登录/锁屏新增 UI 与 Web 登录二维码样式位于 `widgets-51-0/`。
 - 资源目录按变体镜像组织（`assets`、`assets-Dark`、`theme-assets-Sea`、`common-assets` 等），新增图标要同步放入所有相关变体目录，否则对应变体会回退默认图标。
 - 保持 Bash 现有风格：2 空格缩进、小写函数名、`[[ ]]` 判断、变量加双引号。
+- `install-freebsd.sh` 是独立 POSIX sh 脚本（FreeBSD `/bin/sh`），必须用 BSD sed 语法 `sed -i ''`，不调用 `build.sh`/`install.sh`；默认用户级安装，GNOME Shell 不存在时跳过 Shell 样式。
 - 不新增依赖，`sassc` 是唯一构建依赖。
 - GTK 4 的 libadwaita 颜色变量集中在 `src/sass/gtk/_colors-libadwaita.scss`；新增或修改变量时对照 libadwaita 上游 `src/stylesheet/_colors.scss`，保持侧边栏、次级侧边栏、缩略图等变量完整。
 - RPM 打包由 `packaging/lavanda-gtk-theme.spec` 负责，`%post` 调用 `install.sh` 在目标系统按实际 GNOME Shell 版本编译安装；Copr workflow 为 `.github/workflows/copr.yml`，提交到 `ruojiner/lavanda-kde-theme` 项目（Fedora 44/45、EPEL 10 x86_64）。
